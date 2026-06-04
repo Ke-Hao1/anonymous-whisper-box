@@ -1,7 +1,7 @@
 {
-  "name": "毕业季不署名信箱",
-  "short_name": "毕业信箱",
-  "description": "给毕业前的我们留一句匿名悄悄话。",
+  "name": "毕业匿名留言板",
+  "short_name": "毕业留言板",
+  "description": "创建你的毕业匿名留言板，收下公开或仅主人可见的悄悄话。",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f8fbff",

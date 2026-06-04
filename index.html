@@ -3,59 +3,161 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>毕业季不署名信箱</title>
-  <meta name="description" content="给毕业前的我们留一句匿名悄悄话。祝我们前程似锦，也祝我们还能再见。" />
+  <title>毕业匿名留言板</title>
+  <meta name="description" content="创建你的毕业匿名留言板，收下公开或仅主人可见的悄悄话。" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="给毕业前的我们留一句匿名悄悄话" />
-  <meta property="og:description" content="有些话，不署名也可以说。祝我们毕业快乐，前程似锦。" />
+  <meta property="og:title" content="来给我留一句毕业留言吧" />
+  <meta property="og:description" content="可以匿名，也可以署名；可以公开，也可以只给我看。" />
   <meta property="og:image" content="https://ke-hao1.github.io/anonymous-whisper-box/share.png" />
-  <meta property="og:image:secure_url" content="https://ke-hao1.github.io/anonymous-whisper-box/share.png" />
-  <meta property="og:url" content="https://ke-hao1.github.io/anonymous-whisper-box/" />
-  <meta property="og:site_name" content="毕业季不署名信箱" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="给毕业前的我们留一句匿名悄悄话" />
-  <meta name="twitter:description" content="祝我们毕业快乐，前程似锦。" />
-  <meta name="twitter:image" content="https://ke-hao1.github.io/anonymous-whisper-box/share.png" />
+  <meta name="theme-color" content="#dfe8ff" />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="share.png" />
   <link rel="apple-touch-icon" href="share.png" />
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#dfe8ff" />
 </head>
-<body data-page="home">
+<body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <main class="app-shell">
-    <section class="hero-card glass-card">
-      <div class="floating-note note-a">毕业快乐</div>
-      <div class="floating-note note-b">前程似锦</div>
-      <div class="floating-note note-c">下次见</div>
-      <div class="icon-bubble" aria-hidden="true"><span>🎓</span></div>
-      <p class="eyebrow">毕业季 · 不署名信箱</p>
-      <h1>给毕业前的我们<br />留一句匿名话</h1>
-      <p class="subtitle">不用署名，也不用解释。<br />把感谢、遗憾、祝福，悄悄留在这个夏天。</p>
-      <div class="prompt-chips" aria-label="毕业季提示语">
-        <button type="button" data-prompt="毕业快乐，愿你以后一路发光。">毕业快乐</button>
-        <button type="button" data-prompt="谢谢你出现在我的青春里。">谢谢你</button>
-        <button type="button" data-prompt="有机会的话，我们一定要再见。">下次再见</button>
-      </div>
-      <form id="whisperForm" class="whisper-form" autocomplete="off">
-        <label class="input-label" for="messageInput">你想在毕业前悄悄说什么？</label>
-        <textarea id="messageInput" maxlength="160" rows="6" placeholder="比如：虽然快毕业了，但我一直记得那天你帮我的样子……"></textarea>
-        <div class="form-row"><span id="charCount">0 / 160</span><span id="cooldownText" class="muted"></span></div>
-        <button id="sendButton" class="primary-btn" type="submit">匿名投递到毕业信箱</button>
+    <header class="topbar">
+      <button id="homeButton" class="brand" type="button" aria-label="返回首页">
+        <span class="brand-mark">🎓</span>
+        <span>毕业留言板</span>
+      </button>
+      <button id="shareTopButton" class="ghost-pill" type="button" hidden>分享</button>
+    </header>
+
+    <section id="homeView" class="view hero-card glass-card">
+      <div class="floating-note note-a">匿名</div>
+      <div class="floating-note note-b">公开</div>
+      <div class="floating-note note-c">只给TA看</div>
+      <div class="icon-bubble" aria-hidden="true">💌</div>
+      <p class="eyebrow">单页面 · 多人可用</p>
+      <h1>创建你的<br />毕业匿名留言板</h1>
+      <p class="subtitle">不用注册。创建后获得一个留言链接和一个主人密钥。朋友可以匿名或署名留言，也可以选择公开或仅你可见。</p>
+
+      <form id="createForm" class="stack-form" autocomplete="off">
+        <label class="input-label" for="titleInput">你的昵称 / 留言板名字</label>
+        <input id="titleInput" maxlength="40" placeholder="比如：小何的毕业留言板" />
+        <button id="createButton" class="primary-btn" type="submit">创建我的留言板</button>
       </form>
-      <div id="successPanel" class="success-panel" hidden>
-        <div class="success-mark">✓</div><h2>已投递</h2><p>这句话会留在这个毕业季的信箱里。</p>
-        <button id="writeAgainButton" class="secondary-btn" type="button">再写一句</button>
+
+      <div id="createdCard" class="created-card" hidden>
+        <div class="success-mini">✓</div>
+        <h2>留言板已创建</h2>
+        <p class="muted-line">只需要分享这一个链接。主人密钥请截图保存，忘记后无法找回。</p>
+        <label>我的留言链接</label>
+        <div class="copy-row"><input id="shareLinkOutput" readonly /><button class="mini-btn" data-copy="shareLinkOutput" type="button">复制</button></div>
+        <label>主人密钥</label>
+        <div class="copy-row"><input id="ownerKeyOutput" readonly /><button class="mini-btn" data-copy="ownerKeyOutput" type="button">复制</button></div>
+        <div class="action-grid">
+          <button id="openMyBoardButton" class="secondary-btn" type="button">打开我的留言板</button>
+          <button id="shareCreatedButton" class="primary-btn" type="button">分享到微信</button>
+        </div>
+        <p class="warning-text">请立刻截图保存主人密钥。为了不用注册登录，系统不会保存明文密钥，也不能帮你找回。</p>
+      </div>
+
+      <div id="myBoardsCard" class="my-boards" hidden>
+        <h2>这台设备创建过</h2>
+        <div id="myBoardsList" class="my-boards-list"></div>
       </div>
     </section>
-    <section class="rule-card">
-      <h2>毕业季小约定</h2>
-      <p>这个信箱没有自定义敏感词拦截。匿名是为了说出真心话，不是为了伤害别人。</p>
-      <ul><li>每条最多 160 个字。</li><li>发送后不能撤回。</li><li>适合写祝福、感谢、道别、遗憾和没来得及说的话。</li></ul>
+
+    <section id="boardView" class="view board-card glass-card" hidden>
+      <div class="board-hero">
+        <div class="icon-bubble small" aria-hidden="true">🌙</div>
+        <p class="eyebrow">公开留言板</p>
+        <h1 id="boardTitle">毕业留言板</h1>
+        <p id="boardSubtitle" class="subtitle">可以匿名，也可以署名；可以公开，也可以只给主人看。</p>
+        <div class="stats-row">
+          <div class="stat-pill"><strong id="publicCount">0</strong><span>公开留言</span></div>
+          <div class="stat-pill"><strong id="boardCreatedAt">-</strong><span>创建时间</span></div>
+        </div>
+        <div class="action-grid three">
+          <button id="shareBoardButton" class="primary-btn" type="button">分享给微信</button>
+          <button id="ownerEntryButton" class="secondary-btn" type="button">我是主人</button>
+          <button id="createFromBoardButton" class="secondary-btn" type="button">我也创建</button>
+        </div>
+      </div>
+
+      <form id="messageForm" class="message-form" autocomplete="off">
+        <label class="input-label" for="messageInput">给 TA 留一句话</label>
+        <textarea id="messageInput" maxlength="160" rows="5" placeholder="比如：毕业快乐，愿你以后一路发光。"></textarea>
+        <div class="form-row"><span id="charCount">0 / 160</span><span id="cooldownText" class="muted"></span></div>
+        <label class="input-label" for="authorInput">你的名字，可不填</label>
+        <input id="authorInput" maxlength="20" placeholder="不填就是匿名同学" />
+        <label class="check-row"><input id="publicCheckbox" type="checkbox" checked /><span>公开显示在留言板上</span></label>
+        <button id="sendButton" class="primary-btn" type="submit">提交留言</button>
+      </form>
+
+      <div class="list-header">
+        <h2>公开留言</h2>
+        <button id="refreshPublicButton" class="ghost-pill" type="button">刷新</button>
+      </div>
+      <div id="publicEmpty" class="empty-state"><div>📝</div><h3>还没有公开留言</h3><p>你可以成为第一个给 TA 留言的人。</p></div>
+      <div id="publicList" class="message-list"></div>
     </section>
-    <footer class="footer-tip"><p>底部显示“云信箱已连接”时，别人手机发的内容就能同步到主人页。</p></footer>
+
+    <section id="ownerPanel" class="view owner-card glass-card" hidden>
+      <button id="closeOwnerButton" class="close-btn" type="button" aria-label="关闭主人管理区">×</button>
+      <div id="ownerLock">
+        <div class="icon-bubble small" aria-hidden="true">🔐</div>
+        <p class="eyebrow">主人管理区</p>
+        <h1>输入主人密钥</h1>
+        <p class="subtitle">主人可以查看全部留言，包括“仅主人可见”的留言，并且可以删除或隐藏公开留言。</p>
+        <input id="ownerKeyInput" type="password" placeholder="请输入创建时生成的主人密钥" />
+        <button id="unlockButton" class="primary-btn" type="button">进入管理区</button>
+        <p id="ownerError" class="error-text" hidden>密钥不正确，或者数据库还没有配置好。</p>
+      </div>
+      <div id="ownerManage" hidden>
+        <p class="eyebrow">主人管理区</p>
+        <h1 id="ownerTitle">管理留言</h1>
+        <div class="stats-row">
+          <div class="stat-pill"><strong id="ownerTotalCount">0</strong><span>全部留言</span></div>
+          <div class="stat-pill"><strong id="ownerPublicCount">0</strong><span>公开留言</span></div>
+        </div>
+        <div class="toolbar">
+          <button id="ownerRefreshButton" class="secondary-btn small-btn" type="button">刷新</button>
+          <button id="ownerCopyButton" class="secondary-btn small-btn" type="button">复制全部</button>
+        </div>
+        <div id="ownerEmpty" class="empty-state"><div>🎒</div><h3>还没有收到留言</h3><p>分享你的留言链接，等同学朋友来写。</p></div>
+        <div id="ownerList" class="message-list owner-list"></div>
+      </div>
+    </section>
+
+    <section class="rule-card glass-card">
+      <h2>怎么玩？</h2>
+      <p>创建者只分享一个留言链接。朋友打开后可以给你留言，也可以看到公开留言，并继续创建自己的留言板。</p>
+      <ul>
+        <li>留言默认公开，留言人可以取消公开。</li>
+        <li>名字可填可不填，不填就是匿名。</li>
+        <li>主人密钥只显示一次，请截图保存，忘记后无法找回。</li>
+      </ul>
+    </section>
   </main>
+
+  <div id="shareSheet" class="share-sheet" hidden>
+    <div class="share-mask" data-close-share></div>
+    <div class="share-panel glass-card">
+      <button class="close-btn" data-close-share type="button" aria-label="关闭分享面板">×</button>
+      <h2>分享给微信</h2>
+      <p id="wechatGuide" class="muted-line">已准备好分享文案。你可以复制链接，或生成海报发到微信。</p>
+      <div class="share-text" id="shareTextPreview"></div>
+      <div class="action-grid">
+        <button id="copyShareTextButton" class="primary-btn" type="button">复制文案和链接</button>
+        <button id="posterButton" class="secondary-btn" type="button">生成二维码海报</button>
+      </div>
+      <div id="wechatTip" class="wechat-tip" hidden>
+        <div class="tip-arrow">↗</div>
+        <strong>在微信里分享：</strong> 点击右上角 “…” ，选择“发送给朋友”或“分享到朋友圈”。
+      </div>
+      <canvas id="posterCanvas" width="1080" height="1440" hidden></canvas>
+      <img id="posterImage" class="poster-image" alt="留言板分享海报" hidden />
+      <p id="posterHint" class="helper-text" hidden>长按图片保存，或发送给微信好友/朋友圈。</p>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
   <script src="config.js"></script>
   <script src="script.js"></script>
 </body>
