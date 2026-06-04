@@ -1,0 +1,17 @@
+{
+  "name": "不署名信箱",
+  "short_name": "不署名信箱",
+  "description": "给我留一句匿名悄悄话。有些话，不署名也可以说。",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fff3ec",
+  "theme_color": "#f6d6c8",
+  "icons": [
+    {
+      "src": "share.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

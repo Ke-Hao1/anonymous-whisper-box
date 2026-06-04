@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>主人信箱 - 不署名信箱</title>
+  <meta name="description" content="查看收到的匿名悄悄话。" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="share.png" />
+  <link rel="apple-touch-icon" href="share.png" />
+  <meta name="theme-color" content="#f6d6c8" />
+</head>
+<body data-page="inbox">
+  <main class="app-shell inbox-shell">
+    <section id="lockScreen" class="glass-card inbox-lock">
+      <div class="icon-bubble small" aria-hidden="true">🔐</div>
+      <p class="eyebrow">主人入口</p>
+      <h1>查看我的<br />匿名悄悄话</h1>
+      <p class="subtitle">输入主人口令后才能查看。第一版只是演示，不是真正安全的后台。</p>
+
+      <div class="key-box">
+        <input id="keyInput" type="password" inputmode="numeric" placeholder="请输入主人口令" />
+        <button id="unlockButton" class="primary-btn" type="button">进入信箱</button>
+      </div>
+      <p id="keyError" class="error-text" hidden>口令不对，再试试。</p>
+    </section>
+
+    <section id="inboxPanel" class="glass-card inbox-panel" hidden>
+      <div class="inbox-header">
+        <div>
+          <p class="eyebrow">我的信箱</p>
+          <h1>收到的悄悄话</h1>
+        </div>
+        <div class="count-pill"><span id="messageCount">0</span> 条</div>
+      </div>
+
+      <div class="toolbar">
+        <button id="exportButton" class="secondary-btn small-btn" type="button">复制全部</button>
+        <button id="clearButton" class="danger-btn small-btn" type="button">清空</button>
+      </div>
+
+      <div id="emptyState" class="empty-state">
+        <div>📭</div>
+        <h2>还没有收到悄悄话</h2>
+        <p>把首页链接发给朋友，让他们给你留一句匿名话。</p>
+      </div>
+
+      <div id="messageList" class="message-list"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
