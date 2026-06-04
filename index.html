@@ -3,85 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>不署名信箱</title>
-  <meta name="description" content="给我留一句匿名悄悄话。有些话，不署名也可以说。" />
-
-  <!-- 微信 / 社交平台分享卡片信息：上线后，把下面 3 个 https://... 换成你的 GitHub Pages 网址 -->
+  <title>毕业季不署名信箱</title>
+  <meta name="description" content="给毕业前的我们留一句匿名悄悄话。祝我们前程似锦，也祝我们还能再见。" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="给我留一句匿名悄悄话" />
-  <meta property="og:description" content="有些话，不署名也可以说。" />
+  <meta property="og:title" content="给毕业前的我们留一句匿名悄悄话" />
+  <meta property="og:description" content="有些话，不署名也可以说。祝我们毕业快乐，前程似锦。" />
   <meta property="og:image" content="https://ke-hao1.github.io/anonymous-whisper-box/share.png" />
   <meta property="og:image:secure_url" content="https://ke-hao1.github.io/anonymous-whisper-box/share.png" />
   <meta property="og:url" content="https://ke-hao1.github.io/anonymous-whisper-box/" />
-  <meta property="og:site_name" content="不署名信箱" />
-
+  <meta property="og:site_name" content="毕业季不署名信箱" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="给我留一句匿名悄悄话" />
-  <meta name="twitter:description" content="有些话，不署名也可以说。" />
+  <meta name="twitter:title" content="给毕业前的我们留一句匿名悄悄话" />
+  <meta name="twitter:description" content="祝我们毕业快乐，前程似锦。" />
   <meta name="twitter:image" content="https://ke-hao1.github.io/anonymous-whisper-box/share.png" />
-
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="share.png" />
   <link rel="apple-touch-icon" href="share.png" />
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#f6d6c8" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="不署名信箱" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#dfe8ff" />
 </head>
 <body data-page="home">
   <main class="app-shell">
     <section class="hero-card glass-card">
-      <div class="floating-note note-a">嘘</div>
-      <div class="floating-note note-b">匿名</div>
-      <div class="floating-note note-c">送达</div>
-
-      <div class="icon-bubble" aria-hidden="true">
-        <span class="envelope">✉</span>
+      <div class="floating-note note-a">毕业快乐</div>
+      <div class="floating-note note-b">前程似锦</div>
+      <div class="floating-note note-c">下次见</div>
+      <div class="icon-bubble" aria-hidden="true"><span>🎓</span></div>
+      <p class="eyebrow">毕业季 · 不署名信箱</p>
+      <h1>给毕业前的我们<br />留一句匿名话</h1>
+      <p class="subtitle">不用署名，也不用解释。<br />把感谢、遗憾、祝福，悄悄留在这个夏天。</p>
+      <div class="prompt-chips" aria-label="毕业季提示语">
+        <button type="button" data-prompt="毕业快乐，愿你以后一路发光。">毕业快乐</button>
+        <button type="button" data-prompt="谢谢你出现在我的青春里。">谢谢你</button>
+        <button type="button" data-prompt="有机会的话，我们一定要再见。">下次再见</button>
       </div>
-
-      <p class="eyebrow">不署名信箱</p>
-      <h1>给我留一句<br />匿名悄悄话</h1>
-      <p class="subtitle">不会显示你的名字，也不会显示头像。<br />但请温柔一点，我真的会看到。</p>
-
       <form id="whisperForm" class="whisper-form" autocomplete="off">
-        <label class="input-label" for="messageInput">你想悄悄说什么？</label>
-        <textarea
-          id="messageInput"
-          maxlength="120"
-          rows="6"
-          placeholder="比如：其实我一直觉得你很有趣……"
-        ></textarea>
-        <div class="form-row">
-          <span id="charCount">0 / 120</span>
-          <span id="cooldownText" class="muted"></span>
-        </div>
-        <button id="sendButton" class="primary-btn" type="submit">匿名发送</button>
+        <label class="input-label" for="messageInput">你想在毕业前悄悄说什么？</label>
+        <textarea id="messageInput" maxlength="160" rows="6" placeholder="比如：虽然快毕业了，但我一直记得那天你帮我的样子……"></textarea>
+        <div class="form-row"><span id="charCount">0 / 160</span><span id="cooldownText" class="muted"></span></div>
+        <button id="sendButton" class="primary-btn" type="submit">匿名投递到毕业信箱</button>
       </form>
-
       <div id="successPanel" class="success-panel" hidden>
-        <div class="success-mark">✓</div>
-        <h2>已送达</h2>
-        <p>这句话会悄悄出现在 TA 的信箱里。</p>
+        <div class="success-mark">✓</div><h2>已投递</h2><p>这句话会留在这个毕业季的信箱里。</p>
         <button id="writeAgainButton" class="secondary-btn" type="button">再写一句</button>
       </div>
     </section>
-
     <section class="rule-card">
-      <h2>匿名小规则</h2>
-      <p>匿名是为了把不好意思说的话说出口，不是为了伤害别人。</p>
-      <ul>
-        <li>每条最多 120 个字。</li>
-        <li>发送后不能撤回。</li>
-        <li>恶意攻击、威胁、隐私信息不要发。</li>
-      </ul>
+      <h2>毕业季小约定</h2>
+      <p>这个信箱没有自定义敏感词拦截。匿名是为了说出真心话，不是为了伤害别人。</p>
+      <ul><li>每条最多 160 个字。</li><li>发送后不能撤回。</li><li>适合写祝福、感谢、道别、遗憾和没来得及说的话。</li></ul>
     </section>
-
-    <footer class="footer-tip">
-      <p>第一版是网页演示版。真正跨手机收信，下一步需要接云数据库。</p>
-    </footer>
+    <footer class="footer-tip"><p>底部显示“云信箱已连接”时，别人手机发的内容就能同步到主人页。</p></footer>
   </main>
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

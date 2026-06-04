@@ -1,11 +1,11 @@
 {
-  "name": "不署名信箱",
-  "short_name": "不署名信箱",
-  "description": "给我留一句匿名悄悄话。有些话，不署名也可以说。",
+  "name": "毕业季不署名信箱",
+  "short_name": "毕业信箱",
+  "description": "给毕业前的我们留一句匿名悄悄话。",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#fff3ec",
-  "theme_color": "#f6d6c8",
+  "background_color": "#f8fbff",
+  "theme_color": "#dfe8ff",
   "icons": [
     {
       "src": "share.png",
